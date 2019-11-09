@@ -1,0 +1,13 @@
+tap "homebrew/bundle"
+tap "homebrew/core"
+
+brew "bash"
+brew "bat"
+brew "fd"
+brew "mosh"
+brew "ripgrep"
+brew "stow"
+brew "tmux"
+brew "tree"
+brew "vim"
+brew "zsh"
