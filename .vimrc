@@ -88,7 +88,7 @@ nnoremap <C-p> :<C-u>FZF<cr>
 
 "Search with Rg - project wide grep
 "intentionally left out <cr>/enter to review what is being searched
-nnoremap <leader>* :Rg <c-r><c-w>
+nnoremap <leader>* :Rg <c-r><c-w> 
 vnoremap <leader>* y:<c-u>Rg <c-r>"
 
 "remote copy shortcut
@@ -109,6 +109,15 @@ nnoremap <silent> grf :ALEFindReferences<cr>
 nnoremap <silent> gtd :ALEGoToTypeDefinitionInVSplit<cr>
 nmap <silent> [g <Plug>(ale_previous_wrap)
 nmap <silent> ]g <Plug>(ale_next_wrap)
+
+
+"command line mappings
+cnoremap <C-A> <Home>
+cnoremap <C-B> <Left>
+cnoremap <C-F> <Right>
+
+set wildignorecase
+set wildmode=longest,list
 
 " no mapping yet for :ALEDetail
 let g:ale_completion_enabled=1
