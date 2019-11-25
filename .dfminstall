@@ -1,5 +1,7 @@
 README.md skip
 bin recurse
+.config recurse
+.config/nvim recurse
 .zshrc.d recurse
 Brewfile skip
 setup.zsh exec
