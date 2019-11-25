@@ -1,3 +1,4 @@
+set relativenumber
 set number
 set ignorecase
 set smartcase
@@ -7,6 +8,7 @@ set showmatch
 set incsearch
 set mouse=a
 
+" set t_Co=256
 "Create directory if it doesnt exist
 "ToDO: Change it to one variable reference
 silent !mkdir -p $HOME/.vim/undo
@@ -45,19 +47,34 @@ Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/machakann/vim-highlightedyank'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/SirVer/ultisnips'
-" Plug 'https://github.com/prettier/vim-prettier'
 Plug 'https://github.com/luochen1990/rainbow'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/justone/remotecopy', {'dir': '~/.remotecopy', 'rtp' : 'vim'}
+Plug 'https://github.com/tpope/vim-obsession'
+Plug 'https://github.com/flowtype/vim-flow'
+Plug 'ayu-theme/ayu-vim' 
+Plug 'reasonml-editor/vim-reason-plus'
+
 
 " Initialize plugin system
 call plug#end()
+
+set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 
 "custom mappings
 let mapleader = " "
 
 "insert mode mappings
 inoremap jk <Esc>
+
+"terminal: I often go from open buffers list to ctrl- ;)
+""but this is not working for fzf buffer list. :( i mean it's not focused and
+" is in escape mode. so will check later
+tnoremap <C-p> <C-\><C-N>:q<cr>:FZF<cr>
 
 "normal mode mappings
 
@@ -68,9 +85,12 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 
 nnoremap <leader>w :write<cr>
-nnoremap <leader>v :edit $MYVIMRC<CR>
+nnoremap <leader>v :edit ~/.vimrc<CR>
 nnoremap <leader>z :edit ~/.zshrc<CR>
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :source ~/.vimrc<CR>
+nnoremap <silent> <leader>d :bdelete<cr>
+nnoremap <silent> <leader>q :quit<cr>
+nnoremap <silent> <leader>c :cclose<cr>
 
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 map <leader>ew :e %%
@@ -79,10 +99,6 @@ map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
 nnoremap <leader>h :set hlsearch!<cr>
-" Easy quickfix navigation
-nnoremap <C-n> :cn<CR>
-"conflicts with next p -- what to do? :) 
-nnoremap <C-p> :cp<CR>
 
 nnoremap <C-p> :<C-u>FZF<cr>
 
@@ -111,10 +127,26 @@ nmap <silent> [g <Plug>(ale_previous_wrap)
 nmap <silent> ]g <Plug>(ale_next_wrap)
 
 
+"Mouse mappings" -- useful when I have to go back after digging through go to
+"definitions in different files
+map <M-ScrollWheelUp> :bprev <cr>
+map <M-ScrollWheelDown> :bnext <cr>
+
+"key mappings
+"not sure why they are not working in nvim (research later :-()
+if !has('nvim')
+set <M-b>=b
+set <M-f>=f 
+endif
+
 "command line mappings
-cnoremap <C-A> <Home>
-cnoremap <C-B> <Left>
-cnoremap <C-F> <Right>
+
+  " bash like mappings for command line
+  cnoremap <C-A> <Home>
+  cnoremap <C-B> <Left>
+  cnoremap <C-F> <Right>
+  cnoremap <M-b> <C-Left>
+  cnoremap <M-f> <C-Right>
 
 set wildignorecase
 set wildmode=longest,list
@@ -143,4 +175,6 @@ set suffixesadd+=.js
 
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
-endif
+endif  
+
+
