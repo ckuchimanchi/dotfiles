@@ -51,9 +51,9 @@ Plug 'https://github.com/luochen1990/rainbow'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/justone/remotecopy', {'dir': '~/.remotecopy', 'rtp' : 'vim'}
 Plug 'https://github.com/tpope/vim-obsession'
-Plug 'https://github.com/flowtype/vim-flow'
 Plug 'ayu-theme/ayu-vim' 
 Plug 'reasonml-editor/vim-reason-plus'
+" packadd vim-Hg
 
 
 " Initialize plugin system
@@ -75,6 +75,7 @@ inoremap jk <Esc>
 ""but this is not working for fzf buffer list. :( i mean it's not focused and
 " is in escape mode. so will check later
 tnoremap <C-p> <C-\><C-N>:q<cr>:FZF<cr>
+tnoremap <Esc> <C-\><C-n>
 
 "normal mode mappings
 
@@ -84,13 +85,15 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 
-nnoremap <leader>w :write<cr>
-nnoremap <leader>v :edit ~/.vimrc<CR>
-nnoremap <leader>z :edit ~/.zshrc<CR>
+nnoremap <silent> <leader>w :write<cr>
+nnoremap <silent> <leader>v :edit ~/.vimrc<CR>
+nnoremap <silent> <leader>z :edit ~/.zshrc<CR>
 nnoremap <silent> <leader>sv :source ~/.vimrc<CR>
 nnoremap <silent> <leader>d :bdelete<cr>
 nnoremap <silent> <leader>q :quit<cr>
 nnoremap <silent> <leader>c :cclose<cr>
+nnoremap <silent> <leader>t :split <Bar> terminal<cr>
+
 
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 map <leader>ew :e %%
@@ -112,6 +115,10 @@ noremap <silent> cy :silent RemoteCopy<CR>
 vnoremap <silent> cy :<C-u>silent RemoteCopyVisual<CR>
 "not sure how to use this yet, so commenting
 " noremap cyr :RemoteCopyRegister<CR>
+"
+" copy file name
+nnoremap <silent> yf :silent :let @"=expand("%:t:r")<cr>
+nnoremap <silent> pf :silent :let @"=expand("%:t:r") <Bar> :normal p <cr>
 
 nnoremap <leader>o :Buffers<cr>
 
@@ -125,6 +132,8 @@ nnoremap <silent> grf :ALEFindReferences<cr>
 nnoremap <silent> gtd :ALEGoToTypeDefinitionInVSplit<cr>
 nmap <silent> [g <Plug>(ale_previous_wrap)
 nmap <silent> ]g <Plug>(ale_next_wrap)
+
+set completeopt+=noinsert "to prevent ale bug "https://github.com/dense-analysis/ale/issues/1700
 
 
 "Mouse mappings" -- useful when I have to go back after digging through go to
@@ -148,28 +157,35 @@ endif
   cnoremap <M-b> <C-Left>
   cnoremap <M-f> <C-Right>
 
+
+"custom commands
+command! Rtp echo join(split(&rtp,","),"\n")
+
 set wildignorecase
 set wildmode=longest,list
 
 " no mapping yet for :ALEDetail
 let g:ale_completion_enabled=1
-let g:ale_fix_on_save=0
+let g:ale_fix_on_save=1
 let g:ale_lint_on_save=1
 nnoremap <M-LeftMouse> <LeftMouse>:ALEGoToDefinition<CR>
 let g:ale_echo_msg_format = '[%linter%]% [code]% %s'
 " Press `K` to view the type in the gutter
 nnoremap <silent> K :ALEHover<CR>
+let g:ale_set_balloons=1
 if has('balloon_eval_term')
 	set balloonevalterm
-	let g:ale_set_balloons=1
 	let balloondelay = 250
 endif
 
 "Ultisnips
-let g:UltiSnipsSnippetsDir='~/.snippets'
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" let g:UltiSnipsJumpForwardTrigger="<C-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+let g:UltiSnipsEditSplit="context"
+au VimEnter * au! UltiSnips_AutoTrigger
+
 
 set suffixesadd+=.js
 
@@ -178,3 +194,6 @@ if filereadable(glob("~/.vimrc.local"))
 endif  
 
 
+"temp
+"for stylex
+""q   cwstyles.^[lds(ds'df/
