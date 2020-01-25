@@ -53,6 +53,7 @@ Plug 'https://github.com/justone/remotecopy', {'dir': '~/.remotecopy', 'rtp' : '
 Plug 'https://github.com/tpope/vim-obsession'
 Plug 'ayu-theme/ayu-vim' 
 Plug 'reasonml-editor/vim-reason-plus'
+Plug 'janko/vim-test'
 " packadd vim-Hg
 
 

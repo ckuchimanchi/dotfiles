@@ -17,5 +17,5 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
 
-export EDITOR=vim
+export EDITOR=nvim
 export TMUX_OPTIONS="-CC"
