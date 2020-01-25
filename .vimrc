@@ -54,6 +54,7 @@ Plug 'https://github.com/tpope/vim-obsession'
 Plug 'ayu-theme/ayu-vim' 
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'janko/vim-test'
+Plug 'wellle/targets.vim'
 " packadd vim-Hg
 
 
