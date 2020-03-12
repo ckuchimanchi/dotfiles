@@ -133,6 +133,8 @@ nnoremap <silent> grf :ALEFindReferences<cr>
 nnoremap <silent> gtd :ALEGoToTypeDefinitionInVSplit<cr>
 nmap <silent> [g <Plug>(ale_previous_wrap)
 nmap <silent> ]g <Plug>(ale_next_wrap)
+nmap <silent> yf :let @*=expand("%")<CR>
+nmap <silent> yp :let @*=expand("%:p")<CR>
 
 set completeopt+=noinsert "to prevent ale bug "https://github.com/dense-analysis/ale/issues/1700
 
